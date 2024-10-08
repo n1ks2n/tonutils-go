@@ -4,9 +4,10 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"math/big"
+
 	"github.com/xssnick/tonutils-go/tlb"
 	"github.com/xssnick/tonutils-go/tvm/cell"
-	"math/big"
 )
 
 // code hex from https://github.com/ton-blockchain/highload-wallet-contract-v3/commit/3d2843747b14bc2a8915606df736d47490cd3d49
@@ -37,7 +38,7 @@ func (s *SpecHighloadV3) BuildMessage(ctx context.Context, messages []*Message) 
 		return nil, fmt.Errorf("too long ttl")
 	}
 
-	if s.config.MessageTTL <= 5 {
+	if s.config.MessageTTL <= 0 {
 		return nil, fmt.Errorf("too short ttl")
 	}
 
